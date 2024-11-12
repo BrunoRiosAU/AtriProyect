@@ -1,5 +1,7 @@
-const {Client, Events, EmbedBuilder} = require("discord.js")
+const { Client, Events, EmbedBuilder } = require("discord.js");
+const readData = require("./JSONData");
 
+const config = readData("./config.json");
 
 const client = new Client({
     intents: 3276799
@@ -17,14 +19,14 @@ client.on(Events.ClientReady, async () => {
 });
 
 client.on(Events.MessageCreate, async (message) => {
-    if(message.content === "sexo?"){
+    if (message.content === "sexo?") {
         message.channel.send("opa?")
     }
 
-    if(message.content == "c!test"){
+    if (message.content == "c!test") {
         const helpEmbed = new EmbedBuilder()
             .setTitle("se viene")
-            message.channel.send({ embeds: [helpEmbed] })
+        message.channel.send({ embeds: [helpEmbed] })
     }
 
     if (message.content.toLowerCase() == "c!help") {
@@ -41,7 +43,7 @@ client.on(Events.MessageCreate, async (message) => {
                 { name: 'c!ping', value: 'Comprueba el ping del bot.' },
                 { name: 'c!8ball (pregunta)', value: 'Un juego de aleatoriedad donde se pregunta algo y el bot da una respuesta.' },
                 { name: 'c!nick (apodo)', value: 'Permite cambiar tu apodo y tambien borrarlo.' },
-                { name: 'c!ruleta', value: 'Juega una partida de ruleta con otros jugadores.'},
+                { name: 'c!ruleta', value: 'Juega una partida de ruleta con otros jugadores.' },
                 { name: 'Mas comandos proximamente!', value: 'Mas comandos proximamente!' },
                 { name: '\u200B', value: '\u200B' }
             )
@@ -50,9 +52,9 @@ client.on(Events.MessageCreate, async (message) => {
         message.channel.send({ embeds: [helpEmbed] })
     }
 
-    if(!message.author.bot){
+    if (!message.author.bot) {
         message.channel.send("Que era")
     }
 })
 
-client.login("")
+client.login(config.token)
