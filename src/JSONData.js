@@ -1,3 +1,4 @@
+const { error } = require("console");
 const fs = require("fs");
 
 
@@ -12,5 +13,18 @@ function readData(archive) {
     return dataJSON;
 }
 
-module.exports = readData;
+function writeData(archive, obj) {
+    const data = readData(archive);
+    data.user.push(obj);
+    json = JSON.stringify(data);
+    fs.writeFile(archive, json, (error) => {
+        if(error){
+            return false;
+        }
+        return true;
+    })
+
+}
+
+module.exports = { readData, writeData };
 

@@ -1,7 +1,18 @@
 const { Client, Events, EmbedBuilder } = require("discord.js");
-const readData = require("./JSONData");
+const JSONData = require("./JSONData");
 
-const config = readData("./config.json");
+const config = JSONData.readData("./config.json");
+
+const test = {
+    "id": 4,
+    "name": "Chamd",
+    "active": true
+};
+
+
+if (JSONData.writeData("./test.json", test)) { console.log("tetas") } else { console.log("destetas") }
+
+
 
 const client = new Client({
     intents: 3276799
