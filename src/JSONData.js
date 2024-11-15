@@ -17,8 +17,9 @@ function writeData(archive, obj) {
     const data = readData(archive);
     data.user.push(obj);
     json = JSON.stringify(data);
+    console.log(Object.keys(data.user).length)
     fs.writeFile(archive, json, (error) => {
-        if(error){
+        if (error) {
             return false;
         }
         return true;
