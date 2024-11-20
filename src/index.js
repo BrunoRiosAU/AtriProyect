@@ -1,7 +1,9 @@
-const { Client, Events, EmbedBuilder } = require("discord.js");
-const JSONData = require("./JSONData");
+const { Client } = require("discord.js");
+const eventHandler = require('./handlers/eventHandler');
+//const JSONData = require("./JSONData");
+const { token } = require('../config.json');
 
-const config = JSONData.readData("./config.json");
+/*const config = JSONData.readData("./config.json");
 
 const test = {
     "id": 5,
@@ -10,15 +12,15 @@ const test = {
 };
 
 
-if (JSONData.writeData("./test.json", test)) { console.log("tetas") } else { console.log("destetas") }
-
-
+if (JSONData.writeData("./test.json", test)) { console.log("tetas") } else { console.log("destetas") }*/
 
 const client = new Client({
     intents: 3276799
 })
 
-function presence() {
+eventHandler(client);
+
+/*function presence() {
     client.user.setPresence({
         status: "online"
     });
@@ -66,6 +68,6 @@ client.on(Events.MessageCreate, async (message) => {
     if (!message.author.bot) {
         message.channel.send("Que era")
     }
-})
+})*/
 
-client.login(config.token)
+client.login(token)
