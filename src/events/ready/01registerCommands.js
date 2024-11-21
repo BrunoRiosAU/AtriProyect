@@ -1,7 +1,9 @@
-const { testServer } = require('../../../config.json');
+const { REST, Routes } = require("discord.js");
+const { token, testServer, clientId } = require('../../../config.json');
 const areCommandsDifferent = require('../../utils/areCommandsDifferent');
 const getApplicationCommands = require('../../utils/getApplicationCommands');
 const getLocalCommands = require('../../utils/getLocalCommands.js');
+const rest = new REST().setToken(token)
 
 module.exports = async (client) => {
   try {
@@ -12,7 +14,7 @@ module.exports = async (client) => {
     );
 
     for (const localCommand of localCommands) {
-      const { name, description, options } = localCommand;
+      const { name, description, data, options } = localCommand;
 
       const existingCommand = await applicationCommands.cache.find(
         (cmd) => cmd.name === name
@@ -41,16 +43,18 @@ module.exports = async (client) => {
           continue;
         }
 
-        await applicationCommands.create({
+        await rest.put(Routes.applicationGuildCommands(clientId, testServer), { body: [ data ] });
+
+        /*await applicationCommands.create({
           name,
           description,
           options,
-        });
+        });*/
 
         console.log(`👍 Registered command "${name}."`);
       }
     }
   } catch (error) {
-    console.log(`TThere was an error: ${error}`);
+    console.log(`There was an error: ${error}`);
   }
 };
