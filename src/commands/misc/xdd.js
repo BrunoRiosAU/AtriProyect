@@ -8,7 +8,7 @@ module.exports = {
     .setDescription("Un re test")
     .toJSON(),
   testOnly: true,
-  deleted: false,
+  deleted: true,
 
 
   callback: (client, interaction) => {
